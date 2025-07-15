@@ -6,10 +6,20 @@ use Livewire\Component;
 
 class User extends Component
 {
-    public $title = 'User page';
+
+    public function createUser()
+    {
+        return \App\Models\User::create([
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => bcrypt('password')
+        ]);
+    }
 
     public function render()
     {
-        return view('livewire.user');
+        $users = \App\Models\User::all();
+
+        return view('livewire.user', compact('users'));
     }
 }
