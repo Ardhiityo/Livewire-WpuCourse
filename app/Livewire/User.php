@@ -2,16 +2,24 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class User extends Component
 {
-    public $name;
-    public $email;
-    public $password;
+    #[Validate(['required', 'min:3'])]
+    public $name = '';
+
+    #[Validate(['required', 'email:dns', 'unique:users,email'])]
+    public $email = '';
+
+    #[Validate(['required', 'min:3'])]
+    public $password = '';
 
     public function createUser()
     {
+        $this->validate();
+
         \App\Models\User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -23,6 +31,8 @@ class User extends Component
 
         //hanya mereset name
         // $this->reset(['name']);
+
+        session()->flash('status', 'User successfully created.');
     }
 
     public function render()
