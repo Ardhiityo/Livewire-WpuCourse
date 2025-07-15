@@ -6,14 +6,23 @@ use Livewire\Component;
 
 class User extends Component
 {
+    public $name;
+    public $email;
+    public $password;
 
     public function createUser()
     {
-        return \App\Models\User::create([
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'password' => bcrypt('password')
+        \App\Models\User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password)
         ]);
+
+        // mereset semua
+        $this->reset();
+
+        //hanya mereset name
+        // $this->reset(['name']);
     }
 
     public function render()
