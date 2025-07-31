@@ -1,14 +1,14 @@
-<div>
-    <div class="flex min-h-full flex-col min-w-7xl justify-center px-6 py-12 lg:px-8">
+<div class="flex justify-center items-center gap-10">
+    <div class="flex w-1/3 flex-col justify-center py-12">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Create User</h2>
             @session('status')
-                <div class="mt-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+                <div class="mt-4 text-sm text-green-800 text-center rounded-lg bg-green-50" role="alert">
                     {{ session('status') }}
                 </div>
             @endsession
         </div>
-        <div class="mt-10 sm:mx-auto min-w-2xl sm:w-full sm:max-w-sm">
+        <div class="mt-10">
             <form class="space-y-6" action="#" method="POST" wire:submit='createUser'>
                 <div>
                     <label for="name" class="block text-sm/6 font-medium text-gray-900">Name</label>
@@ -116,12 +116,30 @@
             </form>
         </div>
     </div>
-
-    <div class="container mx-auto">
-        <ol class="list-decimal">
+    <div class="flex w-1/2 flex-col">
+        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">User Lists</h2>
+        <ul role="list" class="divide-y divide-gray-100">
             @foreach ($users as $user)
-                <li>{{ $user->name }}</li>
+                <li class="flex justify-between gap-x-6 py-5">
+                    <div class="flex min-w-0 gap-x-4">
+                        <img src="{{ asset($user->avatar ? Storage::url($user->avatar) : 'guest.png') }}" alt="avatar"
+                            class="size-12 flex-none rounded-full bg-gray-50" />
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm/6 font-semibold text-gray-900">{{ $user->name }}</p>
+                            <p class="mt-1 truncate text-xs/5 text-gray-500">{{ $user->email }}</p>
+                        </div>
+                    </div>
+                    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <p class="text-sm/6 text-gray-900">Co-Founder / CEO</p>
+                        <p class="mt-1 text-xs/5 text-gray-500">Last seen
+                            <time datetime="{{ $user->created_at }}">
+                                {{ $user->created_at->diffForHumans() }}
+                            </time>
+                        </p>
+                    </div>
+                </li>
             @endforeach
-        </ol>
+        </ul>
+        {{ $users->links() }}
     </div>
 </div>

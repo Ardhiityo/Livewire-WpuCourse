@@ -2,13 +2,14 @@
 
 namespace App\Livewire;
 
-use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
 
 class User extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     #[Validate(['required', 'min:3'])]
     public $name = '';
@@ -50,7 +51,7 @@ class User extends Component
 
     public function render()
     {
-        $users = \App\Models\User::all();
+        $users = \App\Models\User::latest()->paginate(6);
 
         return view('livewire.user', compact('users'));
     }
