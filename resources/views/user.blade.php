@@ -17,7 +17,12 @@
     {{-- @livewire('user') --}}
 
     {{-- Cara 2 --}}
-    <livewire:user />
+    {{-- <livewire:user /> --}}
+
+    <div class="flex md:flex-row flex-col justify-center items-start gap-10">
+        @livewire('user-register-form')
+        @livewire('user-list')
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
