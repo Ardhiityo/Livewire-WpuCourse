@@ -23,6 +23,21 @@ class User extends Component
     #[Validate(['nullable', 'image', 'max:1000'])]
     public $avatar = '';
 
+    public $keyword = '';
+
+    public function search()
+    {
+        // problem nya adalah ketika berada di halaman selain 1, maka jika mencari data di halaman pertama maka akan tidak tampil, kecuali mencari di halaman pertama maka akan mencari semua data, reset page digunakan untuk mereset halaman sehingga bisa mencari semua data
+        $this->resetPage();
+    }
+
+    // method bawaan livewire yang akan dipanggil ketika ada perubahan pada property keyword
+    public function updatedKeyword()
+    {
+        // problem nya adalah ketika berada di halaman selain 1, maka jika mencari data di halaman pertama maka akan tidak tampil, kecuali mencari di halaman pertama maka akan mencari semua data, reset page digunakan untuk mereset halaman sehingga bisa mencari semua data
+        $this->resetPage();
+    }
+
     public function createUser()
     {
         $this->validate();
@@ -51,7 +66,8 @@ class User extends Component
 
     public function render()
     {
-        $users = \App\Models\User::latest()->paginate(6);
+        $users = \App\Models\User::where('name', 'like', '%' . $this->keyword . '%')
+            ->latest()->paginate(6);
 
         return view('livewire.user', compact('users'));
     }
