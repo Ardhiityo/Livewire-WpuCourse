@@ -40,8 +40,8 @@ class UserList extends Component
             ->latest()->paginate(6);
     }
 
-    public function render()
-    {
-        return view('livewire.user-list');
-    }
+    // public function render()
+    // {
+    //     return view('livewire.user-list');
+    // }
 }
