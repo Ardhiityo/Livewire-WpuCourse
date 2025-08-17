@@ -1,4 +1,4 @@
-<div class="flex w-1/2 flex-col justify-center py-12" wire:poll.keep-alive>
+<div role="status" class="animate-pulse flex w-1/2 flex-col justify-center py-12">
     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">User Lists</h2>
     <form class="w-md mx-auto mt-10" method="POST" wire:submit='search' action="#">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -19,25 +19,21 @@
     </form>
 
     <ul role="list" class="divide-y divide-gray-100 mt-5">
-        @foreach ($users as $user)
-            <li class="flex justify-between gap-x-6 py-5">
-                <div class="flex min-w-0 gap-x-4">
-                    <img src="{{ asset($user->avatar ? Storage::url($user->avatar) : 'guest.png') }}" alt="avatar"
-                        class="size-12 flex-none rounded-full bg-gray-50" />
-                    <div class="min-w-0 flex-auto">
-                        <p class="text-sm/6 font-semibold text-gray-900">{{ $user->name }}</p>
-                        <p class="mt-1 truncate text-xs/5 text-gray-500">{{ $user->email }}</p>
-                    </div>
+        <li class="flex justify-between gap-x-6 py-5">
+            <div class="flex min-w-0 gap-x-4">
+                <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                    <path
+                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                </svg>
+                <div class="w-full">
+                    <div class="h-2.5 bg-gray-500 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                    <div class="h-2 bg-gray-500 rounded-full dark:bg-gray-700 w-100"></div>
                 </div>
-                <div class="shrink-0 flex flex-col items-center">
-                    <p class="mt-1 text-xs/5 text-gray-500">
-                        <time datetime="{{ $user->created_at }}">
-                            {{ $user->created_at->diffForHumans() }}
-                        </time>
-                    </p>
-                </div>
-            </li>
-        @endforeach
+            </div>
+            <div class="shrink-0 flex flex-col items-center">
+                <div class="h-2 bg-gray-500 rounded-full dark:bg-gray-700 w-20"></div>
+            </div>
+        </li>
     </ul>
-    {{ $users->links() }}
 </div>

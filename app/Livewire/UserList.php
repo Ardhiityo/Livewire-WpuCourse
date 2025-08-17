@@ -26,10 +26,18 @@ class UserList extends Component
         $this->resetPage();
     }
 
+    //Melakukan animasi loading ketika data sedang diambil
+    public function placeholder()
+    {
+        return view('livewire.placeholder.user-list');
+    }
+
     public function render()
     {
         $users = \App\Models\User::where('name', 'like', '%' . $this->keyword . '%')
             ->latest()->paginate(6);
+
+        sleep(5);
 
         return view('livewire.user-list', compact('users'));
     }

@@ -21,7 +21,10 @@
 
     <div class="flex md:flex-row flex-col justify-center items-start gap-10">
         @livewire('user-register-form')
-        @livewire('user-list')
+        {{-- Cara 1 --}}
+        {{-- @livewire('user-list', ['lazy' => true]) --}}
+        {{-- Cara 2 --}}
+        <livewire:user-list lazy />
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
