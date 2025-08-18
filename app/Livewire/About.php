@@ -11,7 +11,7 @@ class About extends Component
     public function render()
     {
         return <<<'HTML'
-        <div class="mt-30">
+        <div class="container mx-auto mt-30">
             <h3>About</h3>
         </div>
         HTML;
